@@ -12,7 +12,6 @@ const styles = {
   root: {
     padding: '0 2rem',
     backgroundImage: 'linear-gradient(to right bottom, rgb(64, 72, 69), rgb(0, 0, 0)), linear-gradient(transparent, rgb(0, 0, 0) 70%)',
-
   },
   playlistContainer: {
     color: 'white',

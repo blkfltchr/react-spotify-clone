@@ -1,4 +1,5 @@
 import React from 'react'
+import './App.css'
 import PlayerTemplate from './PlayerTemplate'
 
 const App = () => {

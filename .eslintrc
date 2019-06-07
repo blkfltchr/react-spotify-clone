@@ -11,6 +11,9 @@
             }
         ],
         "react/no-string-refs": 0,
+        "quotes": [2, "single", {
+            "avoidEscape": true
+        }],
         "no-underscore-dangle": 0,
         "import/imports-first": ["error", "absolute-first"],
         "import/newline-after-import": 0,

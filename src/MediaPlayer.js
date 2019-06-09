@@ -3,18 +3,18 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Divider from '@material-ui/core/Divider'
 import ReactPlayer from 'react-player'
-import PlayButtons from './PlayButtons'
 import TrackList from './TrackList'
 import CurrentSong from './CurrentSong'
 import PlaylistInfo from './PlaylistInfo'
 
 const styles = {
   root: {
-    padding: '0 2rem',
     backgroundImage: 'linear-gradient(to right bottom, rgb(64, 72, 69), rgb(0, 0, 0)), linear-gradient(transparent, rgb(0, 0, 0) 70%)',
   },
   playlistContainer: {
+    padding: '0 2rem',
     color: 'white',
+    height: '100vh',
   },
   divider: {
     backgroundColor: 'lightGray',
@@ -57,8 +57,7 @@ class MediaPlayer extends React.Component {
             <Divider className={classes.divider} />
             <TrackList tracks={tracks} handleSongSelect={this.handleSongSelect} />
           </div>
-          <CurrentSong song={song} />
-          <PlayButtons handlePlayToggle={this.handlePlayToggle} isPlaying={isPlaying} />
+          <CurrentSong song={song} handlePlayToggle={this.handlePlayToggle} isPlaying={isPlaying} />
           <ReactPlayer
             ref="reactPlayer"
             playing={isPlaying}

@@ -6,6 +6,8 @@ import SkipPreviousIcon from '@material-ui/icons/SkipPrevious'
 import PlayArrowIcon from '@material-ui/icons/PlayArrow'
 import PauseIcon from '@material-ui/icons/Pause'
 import SkipNextIcon from '@material-ui/icons/SkipNext'
+import RepeatIcon from '@material-ui/icons/Repeat'
+import ShuffleIcon from '@material-ui/icons/Shuffle'
 
 const styles = {
   controls: {
@@ -13,8 +15,12 @@ const styles = {
     alignItems: 'center',
   },
   playIcon: {
-    height: 38,
-    width: 38,
+    height: 55,
+    width: 55,
+    color: 'white'
+  },
+  skipButtons: {
+    color: 'white',
   },
 }
 
@@ -24,14 +30,20 @@ const PlayButtons = props => {
   const playPause = !isPlaying ? <PlayArrowIcon className={classes.playIcon} /> : <PauseIcon className={classes.playIcon} />
   return (
     <div className={classes.controls}>
-      <IconButton aria-label="Previous" >
+      <IconButton>
+        <ShuffleIcon  aria-label="Shuffle" className={classes.skipButtons}/>
+      </IconButton>
+      <IconButton aria-label="Previous" className={classes.skipButtons}>
         <SkipPreviousIcon />
       </IconButton>
       <IconButton aria-label="Play/pause" onClick={handlePlayToggle} >
         {playPause}
       </IconButton>
-      <IconButton aria-label="Next" >
+      <IconButton aria-label="Next" className={classes.skipButtons}>
         <SkipNextIcon />
+      </IconButton>
+      <IconButton>
+        <RepeatIcon  aria-label="Repeat" className={classes.skipButtons}/>
       </IconButton>
     </div>
   )

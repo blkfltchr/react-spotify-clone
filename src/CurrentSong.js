@@ -23,7 +23,7 @@ const styles = {
     width: '100%',
   },
   listItem: {
-    width: '200px',
+    width: '250px',
   },
   avatar: {
     borderRadius: '0',
@@ -35,10 +35,14 @@ const styles = {
     color: 'lightGray',
     fontSize: '12px',
   },
+  volumeStyle: {
+    width: '250px',
+    display: 'flex',
+  },
 }
 
 const CurrentSong = props => {
-  const { song: { trackName, artistName, artworkUrl }, classes: { root, listItem, avatar, primary, secondary }, handlePlayToggle, isPlaying } = props
+  const { song: { trackName, artistName, artworkUrl }, classes: { root, listItem, avatar, primary, secondary, volumeStyle }, handlePlayToggle, isPlaying, volume, setVolume } = props
   return ( 
     <div className={root}>
       <ListItem className={listItem}>
@@ -51,10 +55,11 @@ const CurrentSong = props => {
         />
       </ListItem>
       <PlayButtons handlePlayToggle={handlePlayToggle} isPlaying={isPlaying} />
-      <div className={listItem}>
+      <div className={volumeStyle}>
         <IconButton>
           <VolumeUpIcon  aria-label="Repeat" className={primary}/>
         </IconButton>
+        <input type='range' min={0} max={1} step='any' value={volume} onChange={setVolume} />
       </div>
     </div>
 
@@ -66,6 +71,8 @@ CurrentSong.propTypes = {
   classes: PropTypes.object.isRequired,
   handlePlayToggle: PropTypes.func.isRequired,
   isPlaying: PropTypes.bool.isRequired,
+  volume: PropTypes.number.isRequired,
+  setVolume: PropTypes.func.isRequired,
 }
 
 export default withStyles(styles)(CurrentSong)

@@ -28,13 +28,13 @@ const styles = {
 }
 
 const TrackList = props => {
-  const { tracks, classes, handleSongSelect } = props
+  const { tracks, classes, handleSongSelect, handlePlayToggle } = props
   return ( 
     <List>
       {
         tracks.map((track) => {
           return (
-            <ListItem key={track.id} className={classes.root} onClick={() => handleSongSelect(track.id)}>
+            <ListItem key={track.id} className={classes.root} onClick={() => handleSongSelect(track.id)} onDoubleClick={handlePlayToggle}>
               <ListItemAvatar>
                 <Avatar alt={`${track.trackName} by ${track.artistName} cover`} src={track.artworkUrl} className={classes.avatar} />
               </ListItemAvatar>
@@ -55,6 +55,7 @@ TrackList.propTypes = {
   tracks: PropTypes.array.isRequired,
   classes: PropTypes.object.isRequired,
   handleSongSelect: PropTypes.func.isRequired,
+  handlePlayToggle: PropTypes.func.isRequired,
 }
  
 export default withStyles(styles)(TrackList)

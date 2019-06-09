@@ -30,7 +30,8 @@ class MediaPlayer extends React.Component {
         artworkUrl: 'https://images.sk-static.com/images/media/profile_images/artists/29315/huge_avatar',
         mediaUrl: 'https://p.scdn.co/mp3-preview/6aba2f4e671ffe07fd60807ca5fef82d48146d4c?cid=1cef747d7bdf4c52ac981490515bda71',
         durationMilliseconds: 30000 
-      }
+      },
+      volume: 0.8,
     }
     
     handlePlayToggle = () => {
@@ -47,24 +48,28 @@ class MediaPlayer extends React.Component {
       })
     }
 
+    setVolume = e => {
+      this.setState({ volume: parseFloat(e.target.value) })
+    }
+
     render() {
-      const { isPlaying, song, song: { mediaUrl } } = this.state
+      const { isPlaying, song, song: { mediaUrl }, volume } = this.state
       const { tracks, classes } = this.props
       return (
         <div className={classes.root}>
           <div className={classes.playlistContainer}>
-            <PlaylistInfo handlePlayToggle={this.handlePlayToggle} playlistLength={tracks.length} />
+            <PlaylistInfo handlePlayToggle={this.handlePlayToggle} playlistLength={tracks.length} isPlaying={isPlaying} />
             <Divider className={classes.divider} />
-            <TrackList tracks={tracks} handleSongSelect={this.handleSongSelect} />
+            <TrackList tracks={tracks} handleSongSelect={this.handleSongSelect} handlePlayToggle={this.handlePlayToggle} />
           </div>
-          <CurrentSong song={song} handlePlayToggle={this.handlePlayToggle} isPlaying={isPlaying} />
+          <CurrentSong song={song} handlePlayToggle={this.handlePlayToggle} isPlaying={isPlaying} volume={volume} setVolume={this.setVolume} />
           <ReactPlayer
             ref="reactPlayer"
             playing={isPlaying}
             height="0px"
             width="0px"
             config={{ file: { forceAudio: true } }}
-            // Currently populated with a sample URL.
+            volume={volume}
             url={mediaUrl} /> 
         </div>
       )

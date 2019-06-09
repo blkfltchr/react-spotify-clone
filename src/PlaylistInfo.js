@@ -55,7 +55,8 @@ const styles = {
 }
 
 const PlaylistInfo = props => {
-  const { classes, handlePlayToggle, playlistLength } = props
+  const { classes, handlePlayToggle, playlistLength, isPlaying } = props
+  const playPause = isPlaying ? 'Pause' : 'Play'
   return ( 
     <div className={classes.root}>
       <Avatar alt="My sodatone playlist" src="https://cps-static.rovicorp.com/3/JPG_500/MI0003/626/MI0003626958.jpg?partner=allrovi.com" className={classes.avatar} />
@@ -66,7 +67,7 @@ const PlaylistInfo = props => {
           <Typography className={classes.playlistLength}>{`${playlistLength} SONGS`}</Typography>
         </div>
         <div>
-          <Button variant="contained" className={classes.button} onClick={handlePlayToggle}>Play</Button>
+          <Button variant="contained" className={classes.button} onClick={handlePlayToggle}>{playPause}</Button>
           <IconButton aria-label="More" className={classes.more} >
             <MoreHorizIcon />
           </IconButton>
@@ -80,6 +81,7 @@ PlaylistInfo.propTypes = {
   classes: PropTypes.object.isRequired,
   handlePlayToggle: PropTypes.func.isRequired,
   playlistLength: PropTypes.number.isRequired,
+  isPlaying: PropTypes.bool.isRequired,
 }
  
 export default withStyles(styles)(PlaylistInfo)

@@ -32,6 +32,8 @@ class MediaPlayer extends React.Component {
         durationMilliseconds: 30000 
       },
       volume: 0.8,
+      seeking: false,
+      played: 0,
     }
     
     handlePlayToggle = () => {
@@ -52,8 +54,34 @@ class MediaPlayer extends React.Component {
       this.setState({ volume: parseFloat(e.target.value) })
     }
 
+    onSeekMouseDown = () => {
+      this.setState({ seeking: true })
+    }
+
+    onSeekChange = e => {
+      this.setState({ played: parseFloat(e.target.value) })
+    }
+
+    onSeekMouseUp = e => {
+      this.setState({ seeking: false })
+      this.player.seekTo(parseFloat(e.target.value))
+    }
+
+    onProgress = state => {
+      console.log('onProgress', state)
+      const { seeking } = this.state
+      // We only want to update time slider if we are not currently seeking
+      if (!seeking) {
+        this.setState(state)
+      }
+    }
+
+    ref = player => {
+      this.player = player
+    }
+
     render() {
-      const { isPlaying, song, song: { mediaUrl }, volume } = this.state
+      const { isPlaying, song, song: { mediaUrl }, volume, seeking, played } = this.state
       const { tracks, classes } = this.props
       return (
         <div className={classes.root}>
@@ -62,15 +90,28 @@ class MediaPlayer extends React.Component {
             <Divider className={classes.divider} />
             <TrackList tracks={tracks} handleSongSelect={this.handleSongSelect} handlePlayToggle={this.handlePlayToggle} />
           </div>
-          <CurrentSong song={song} handlePlayToggle={this.handlePlayToggle} isPlaying={isPlaying} volume={volume} setVolume={this.setVolume} />
+          <CurrentSong 
+            song={song} 
+            handlePlayToggle={this.handlePlayToggle} 
+            isPlaying={isPlaying} 
+            volume={volume} 
+            setVolume={this.setVolume} 
+            seeking={seeking}
+            played={played}
+            onSeekMouseDown={this.onSeekMouseDown}
+            onSeekChange={this.onSeekChange}
+            onSeekMouseUp={this.onSeekMouseUp}
+          />
           <ReactPlayer
-            ref="reactPlayer"
+            ref={this.ref}
             playing={isPlaying}
             height="0px"
             width="0px"
             config={{ file: { forceAudio: true } }}
             volume={volume}
-            url={mediaUrl} /> 
+            url={mediaUrl} 
+            onProgress={this.onProgress}
+          /> 
         </div>
       )
     }

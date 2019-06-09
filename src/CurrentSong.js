@@ -42,7 +42,7 @@ const styles = {
 }
 
 const CurrentSong = props => {
-  const { song: { trackName, artistName, artworkUrl }, classes: { root, listItem, avatar, primary, secondary, volumeStyle }, handlePlayToggle, isPlaying, volume, setVolume } = props
+  const { song: { trackName, artistName, artworkUrl }, classes: { root, listItem, avatar, primary, secondary, volumeStyle }, handlePlayToggle, isPlaying, volume, setVolume, played, onSeekMouseDown, onSeekChange, onSeekMouseUp } = props
   return ( 
     <div className={root}>
       <ListItem className={listItem}>
@@ -54,7 +54,14 @@ const CurrentSong = props => {
           secondary={<Typography className={secondary}>{artistName}</Typography>}
         />
       </ListItem>
-      <PlayButtons handlePlayToggle={handlePlayToggle} isPlaying={isPlaying} />
+      <PlayButtons 
+        handlePlayToggle={handlePlayToggle} 
+        isPlaying={isPlaying} 
+        played={played}
+        onSeekMouseDown={onSeekMouseDown}
+        onSeekChange={onSeekChange}
+        onSeekMouseUp={onSeekMouseUp}  
+      />
       <div className={volumeStyle}>
         <IconButton>
           <VolumeUpIcon  aria-label="Repeat" className={primary}/>
@@ -73,6 +80,10 @@ CurrentSong.propTypes = {
   isPlaying: PropTypes.bool.isRequired,
   volume: PropTypes.number.isRequired,
   setVolume: PropTypes.func.isRequired,
+  played: PropTypes.number.isRequired,
+  onSeekMouseDown: PropTypes.func.isRequired,
+  onSeekChange: PropTypes.func.isRequired,
+  onSeekMouseUp: PropTypes.func.isRequired,
 }
 
 export default withStyles(styles)(CurrentSong)

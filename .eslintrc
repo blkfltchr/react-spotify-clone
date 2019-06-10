@@ -3,14 +3,17 @@
     "plugins": ["prettier"],
     "rules": {
         "semi": ["error", "never"],
-        "react/forbid-prop-types": 0,
+        "react/no-string-refs": 0,
+        "react/jsx-max-props-per-line": [1, {
+            "maximum": 1
+        }],
         "react/jsx-filename-extension": [
             1,
             {
                 "extensions": [".js", ".jsx"]
             }
         ],
-        "react/no-string-refs": 0,
+        "react/forbid-prop-types": 0,
         "quotes": [2, "single", {
             "avoidEscape": true
         }],

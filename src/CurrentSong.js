@@ -42,12 +42,15 @@ const styles = {
 }
 
 const CurrentSong = props => {
-  const { song: { trackName, artistName, artworkUrl }, classes: { root, listItem, avatar, primary, secondary, volumeStyle }, handlePlayToggle, isPlaying, volume, setVolume, played, onSeekMouseDown, onSeekChange, onSeekMouseUp } = props
+  const { song: { trackName, artistName, artworkUrl }, classes: { root, listItem, avatar, primary, secondary, volumeStyle }, handlePlayToggle, isPlaying, volume, setVolume, played, onSeekMouseDown, onSeekChange, onSeekMouseUp, handleNextSong, handlePreviousSong } = props
   return ( 
     <div className={root}>
       <ListItem className={listItem}>
         <ListItemAvatar>
-          <Avatar src={artworkUrl} title={`${trackName} by ${artistName} cover`} className={avatar} /> 
+          <Avatar 
+            src={artworkUrl}
+            title={`${trackName} by ${artistName} cover`}
+            className={avatar} /> 
         </ListItemAvatar>
         <ListItemText
           primary={<Typography className={primary}>{trackName}</Typography>}
@@ -61,12 +64,20 @@ const CurrentSong = props => {
         onSeekMouseDown={onSeekMouseDown}
         onSeekChange={onSeekChange}
         onSeekMouseUp={onSeekMouseUp}  
+        handleNextSong={handleNextSong}
+        handlePreviousSong={handlePreviousSong}
       />
       <div className={volumeStyle}>
         <IconButton>
-          <VolumeUpIcon  aria-label="Repeat" className={primary}/>
+          <VolumeUpIcon  aria-label="Repeat"
+            className={primary}/>
         </IconButton>
-        <input type='range' min={0} max={1} step='any' value={volume} onChange={setVolume} />
+        <input type='range'
+          min={0}
+          max={1}
+          step='any'
+          value={volume}
+          onChange={setVolume} />
       </div>
     </div>
 
@@ -84,6 +95,8 @@ CurrentSong.propTypes = {
   onSeekMouseDown: PropTypes.func.isRequired,
   onSeekChange: PropTypes.func.isRequired,
   onSeekMouseUp: PropTypes.func.isRequired,
+  handleNextSong: PropTypes.func.isRequired,
+  handlePreviousSong: PropTypes.func.isRequired,
 }
 
 export default withStyles(styles)(CurrentSong)

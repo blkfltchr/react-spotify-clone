@@ -25,6 +25,7 @@ class MediaPlayer extends React.Component {
     state = {
       isPlaying: false,
       song: {
+        id: 1,
         trackName: 'The Pretender',
         artistName: 'Foo Fighters',
         artworkUrl: 'https://images.sk-static.com/images/media/profile_images/artists/29315/huge_avatar',
@@ -50,6 +51,26 @@ class MediaPlayer extends React.Component {
       })
     }
 
+    handleNextSong = () => {
+      const { tracks } = this.props
+      const tracksLength = tracks.length
+      const { song } = this.state
+      const nextSong = song.id === tracksLength ? tracks.find(track => track.id === 1) : tracks.find(track => track.id === song.id + 1)
+      this.setState({
+        song: nextSong
+      })
+    }
+
+    handlePreviousSong = () => {
+      const { tracks } = this.props
+      const tracksLength = tracks.length
+      const { song } = this.state
+      const previousSong = song.id === 1 ? tracks.find(track => track.id === tracksLength) : tracks.find(track => track.id === song.id - 1)
+      this.setState({
+        song: previousSong
+      })
+    }
+
     setVolume = e => {
       this.setState({ volume: parseFloat(e.target.value) })
     }
@@ -68,7 +89,6 @@ class MediaPlayer extends React.Component {
     }
 
     onProgress = state => {
-      console.log('onProgress', state)
       const { seeking } = this.state
       // We only want to update time slider if we are not currently seeking
       if (!seeking) {
@@ -86,9 +106,15 @@ class MediaPlayer extends React.Component {
       return (
         <div className={classes.root}>
           <div className={classes.playlistContainer}>
-            <PlaylistInfo handlePlayToggle={this.handlePlayToggle} playlistLength={tracks.length} isPlaying={isPlaying} />
+            <PlaylistInfo 
+              handlePlayToggle={this.handlePlayToggle} 
+              playlistLength={tracks.length} 
+              isPlaying={isPlaying} />
             <Divider className={classes.divider} />
-            <TrackList tracks={tracks} handleSongSelect={this.handleSongSelect} handlePlayToggle={this.handlePlayToggle} />
+            <TrackList 
+              tracks={tracks} 
+              handleSongSelect={this.handleSongSelect} 
+              handlePlayToggle={this.handlePlayToggle} />
           </div>
           <CurrentSong 
             song={song} 
@@ -101,6 +127,8 @@ class MediaPlayer extends React.Component {
             onSeekMouseDown={this.onSeekMouseDown}
             onSeekChange={this.onSeekChange}
             onSeekMouseUp={this.onSeekMouseUp}
+            handleNextSong={this.handleNextSong}
+            handlePreviousSong={this.handlePreviousSong}
           />
           <ReactPlayer
             ref={this.ref}

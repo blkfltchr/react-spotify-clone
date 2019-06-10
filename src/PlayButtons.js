@@ -29,30 +29,47 @@ const styles = {
 }
 
 const PlayButtons = props => {
-  const {handlePlayToggle, classes, isPlaying, played, onSeekMouseDown, onSeekChange, onSeekMouseUp} = props
+  const {handlePlayToggle, classes, isPlaying, played, onSeekMouseDown, onSeekChange, onSeekMouseUp, handleNextSong, handlePreviousSong} = props
 
   const playPause = !isPlaying ? <PlayArrowIcon className={classes.playIcon} /> : <PauseIcon className={classes.playIcon} />
   return (
     <div className={classes.root}>
       <div className={classes.controls}>
         <IconButton>
-          <ShuffleIcon  aria-label="Shuffle" className={classes.skipButtons}/>
+          <ShuffleIcon  
+            aria-label="Shuffle"
+            className={classes.skipButtons}/>
         </IconButton>
-        <IconButton aria-label="Previous" className={classes.skipButtons}>
+        <IconButton 
+          aria-label="Previous"
+          className={classes.skipButtons}
+          onClick={handlePreviousSong}
+        >
           <SkipPreviousIcon />
         </IconButton>
-        <IconButton aria-label="Play/pause" onClick={handlePlayToggle} >
+        <IconButton 
+          aria-label="Play/pause"
+          onClick={handlePlayToggle} >
           {playPause}
         </IconButton>
-        <IconButton aria-label="Next" className={classes.skipButtons}>
+        <IconButton 
+          aria-label="Next"
+          className={classes.skipButtons}
+          onClick={handleNextSong}
+        >
           <SkipNextIcon />
         </IconButton>
         <IconButton>
-          <RepeatIcon  aria-label="Repeat" className={classes.skipButtons}/>
+          <RepeatIcon  
+            aria-label="Repeat"
+            className={classes.skipButtons}/>
         </IconButton>
       </div>
       <input
-        type='range' min={0} max={1} step='any'
+        type='range'
+        min={0}
+        max={1}
+        step='any'
         value={played}
         onMouseDown={onSeekMouseDown}
         onChange={onSeekChange}
@@ -70,6 +87,8 @@ PlayButtons.propTypes = {
   onSeekMouseDown: PropTypes.func.isRequired,
   onSeekChange: PropTypes.func.isRequired,
   onSeekMouseUp: PropTypes.func.isRequired,
+  handleNextSong: PropTypes.func.isRequired,
+  handlePreviousSong: PropTypes.func.isRequired,
 }
 
 export default withStyles(styles)(PlayButtons)

@@ -34,9 +34,16 @@ const TrackList = props => {
       {
         tracks.map((track) => {
           return (
-            <ListItem key={track.id} className={classes.root} onClick={() => handleSongSelect(track.id)} onDoubleClick={handlePlayToggle}>
+            <ListItem 
+              key={track.id} 
+              className={classes.root} 
+              onClick={() => handleSongSelect(track.id)}
+              onDoubleClick={handlePlayToggle}>
               <ListItemAvatar>
-                <Avatar alt={`${track.trackName} by ${track.artistName} cover`} src={track.artworkUrl} className={classes.avatar} />
+                <Avatar 
+                  alt={`${track.trackName} by ${track.artistName} cover`} 
+                  src={track.artworkUrl} 
+                  className={classes.avatar} />
               </ListItemAvatar>
               <ListItemText
                 primary={track.trackName}

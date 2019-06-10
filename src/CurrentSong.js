@@ -10,7 +10,7 @@ import IconButton from '@material-ui/core/IconButton'
 import VolumeUpIcon from '@material-ui/icons/VolumeUp'
 import PlayButtons from './PlayButtons'
 
-const styles = {
+const styles = theme => ({
   root: {
     height: '115px',
     backgroundColor: '#282828',
@@ -18,12 +18,19 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    position: 'absolute',
+    position: 'sticky',
     bottom: '0',
     width: '100%',
+    [theme.breakpoints.down('xs')]: {
+      flexDirection: 'column',
+      height: '220px',
+    },
   },
   listItem: {
     width: '250px',
+    [theme.breakpoints.down('xs')]: {
+      width: 'auto'
+    },
   },
   avatar: {
     borderRadius: '0',
@@ -37,9 +44,12 @@ const styles = {
   },
   volumeStyle: {
     width: '250px',
+    [theme.breakpoints.down('xs')]: {
+      width: 'auto'
+    },
     display: 'flex',
   },
-}
+})
 
 const CurrentSong = props => {
   const { 

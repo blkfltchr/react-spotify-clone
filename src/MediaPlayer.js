@@ -15,6 +15,7 @@ const styles = {
     padding: '0 2rem',
     color: 'white',
     height: '100vh',
+    overflowY: 'scroll',
   },
   divider: {
     backgroundColor: 'lightGray',

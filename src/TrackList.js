@@ -28,14 +28,16 @@ const styles = {
 }
 
 const TrackList = props => {
-  const { tracks, classes, handleSongSelect, handlePlayToggle } = props
+  const { tracks, classes, handleSongSelect, handlePlayToggle, song } = props
   return ( 
     <List>
       {
         tracks.map((track) => {
+          const bgColor = song === track ? 'rgb(64, 72, 69)' : 'inherit'
           return (
             <ListItem 
               key={track.id} 
+              style={{backgroundColor: bgColor}}
               className={classes.root} 
               onClick={() => handleSongSelect(track.id)}
               onDoubleClick={handlePlayToggle}>
@@ -63,6 +65,7 @@ TrackList.propTypes = {
   classes: PropTypes.object.isRequired,
   handleSongSelect: PropTypes.func.isRequired,
   handlePlayToggle: PropTypes.func.isRequired,
+  song: PropTypes.object.isRequired,
 }
  
 export default withStyles(styles)(TrackList)

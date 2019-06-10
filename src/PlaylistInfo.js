@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar'
@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
+import MoreInfo from './MoreInfo'
 
 const styles = {
   root: {
@@ -54,27 +55,53 @@ const styles = {
   },
 }
 
-const PlaylistInfo = props => {
-  const { classes, handlePlayToggle, playlistLength, isPlaying } = props
-  const playPause = isPlaying ? 'Pause' : 'Play'
-  return ( 
-    <div className={classes.root}>
-      <Avatar alt="My sodatone playlist" src="https://cps-static.rovicorp.com/3/JPG_500/MI0003/626/MI0003626958.jpg?partner=allrovi.com" className={classes.avatar} />
-      <div className={classes.playlistText}>
-        <div>
-          <Typography className={classes.playlistTitle}>My sodatone playlist</Typography>
-          <Typography className={classes.playlistOwner}><span className={classes.by}>By </span>Blake Fletcher</Typography>
-          <Typography className={classes.playlistLength}>{`${playlistLength} SONGS`}</Typography>
-        </div>
-        <div>
-          <Button variant="contained" className={classes.button} onClick={handlePlayToggle}>{playPause}</Button>
-          <IconButton aria-label="More" className={classes.more} >
-            <MoreHorizIcon />
-          </IconButton>
+class PlaylistInfo extends Component {
+  state = {
+    open: false
+  }
+
+  handleOpenClose = () => {
+    const { open } = this.state
+    this.setState({
+      open: !open
+    })
+  }
+
+  render() {
+    const { classes, handlePlayToggle, playlistLength, isPlaying } = this.props
+    const { open } = this.state
+    const playPause = isPlaying ? 'Pause' : 'Play'
+    return ( 
+      <div className={classes.root}>
+        <Avatar 
+          alt="My Sodatone playlist"
+          src="https://cps-static.rovicorp.com/3/JPG_500/MI0003/626/MI0003626958.jpg?partner=allrovi.com"
+          className={classes.avatar} />
+        <div className={classes.playlistText}>
+          <div>
+            <Typography className={classes.playlistTitle}>My Sodatone playlist</Typography>
+            <Typography className={classes.playlistOwner}><span className={classes.by}>By </span>Blake Fletcher</Typography>
+            <Typography className={classes.playlistLength}>{`${playlistLength} SONGS`}</Typography>
+          </div>
+          <div>
+            <Button 
+              variant="contained"
+              className={classes.button}
+              onClick={handlePlayToggle}>{playPause}</Button>
+            <IconButton 
+              aria-label="More"
+              className={classes.more} 
+              onClick={this.handleOpenClose}
+            >
+              <MoreHorizIcon />
+            </IconButton>
+            <MoreInfo handleOpenClose={this.handleOpenClose}
+              open={open} />
+          </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 PlaylistInfo.propTypes = {

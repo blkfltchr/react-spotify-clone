@@ -119,6 +119,7 @@ class MediaPlayer extends React.Component {
               isPlaying={isPlaying} />
             <Divider className={classes.divider} />
             <TrackList 
+              song={song}
               tracks={tracks} 
               handleSongSelect={this.handleSongSelect} 
               handlePlayToggle={this.handlePlayToggle} />

@@ -35,6 +35,7 @@ class MediaPlayer extends React.Component {
       volume: 0.8,
       seeking: false,
       played: 0,
+      loop: false,
     }
     
     handlePlayToggle = () => {
@@ -96,12 +97,17 @@ class MediaPlayer extends React.Component {
       }
     }
 
+    toggleLoop = () => {
+      const { loop } = this.state
+      this.setState({ loop: !loop })
+    }
+
     ref = player => {
       this.player = player
     }
 
     render() {
-      const { isPlaying, song, song: { mediaUrl }, volume, seeking, played } = this.state
+      const { isPlaying, song, song: { mediaUrl }, volume, seeking, played, loop } = this.state
       const { tracks, classes } = this.props
       return (
         <div className={classes.root}>
@@ -129,6 +135,8 @@ class MediaPlayer extends React.Component {
             onSeekMouseUp={this.onSeekMouseUp}
             handleNextSong={this.handleNextSong}
             handlePreviousSong={this.handlePreviousSong}
+            toggleLoop={this.toggleLoop}
+            loop={loop}
           />
           <ReactPlayer
             ref={this.ref}
@@ -139,6 +147,7 @@ class MediaPlayer extends React.Component {
             volume={volume}
             url={mediaUrl} 
             onProgress={this.onProgress}
+            loop={loop}
           /> 
         </div>
       )

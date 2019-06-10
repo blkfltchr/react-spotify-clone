@@ -42,7 +42,22 @@ const styles = {
 }
 
 const CurrentSong = props => {
-  const { song: { trackName, artistName, artworkUrl }, classes: { root, listItem, avatar, primary, secondary, volumeStyle }, handlePlayToggle, isPlaying, volume, setVolume, played, onSeekMouseDown, onSeekChange, onSeekMouseUp, handleNextSong, handlePreviousSong } = props
+  const { 
+    song: { trackName, artistName, artworkUrl }, 
+    classes: { root, listItem, avatar, primary, secondary, volumeStyle }, 
+    handlePlayToggle, 
+    isPlaying, 
+    volume, 
+    setVolume, 
+    played, 
+    onSeekMouseDown, 
+    onSeekChange, 
+    onSeekMouseUp, 
+    handleNextSong, 
+    handlePreviousSong,
+    toggleLoop,
+    loop
+  } = props
   return ( 
     <div className={root}>
       <ListItem className={listItem}>
@@ -66,6 +81,8 @@ const CurrentSong = props => {
         onSeekMouseUp={onSeekMouseUp}  
         handleNextSong={handleNextSong}
         handlePreviousSong={handlePreviousSong}
+        toggleLoop={toggleLoop}
+        loop={loop}
       />
       <div className={volumeStyle}>
         <IconButton>
@@ -97,6 +114,8 @@ CurrentSong.propTypes = {
   onSeekMouseUp: PropTypes.func.isRequired,
   handleNextSong: PropTypes.func.isRequired,
   handlePreviousSong: PropTypes.func.isRequired,
+  toggleLoop: PropTypes.func.isRequired,
+  loop: PropTypes.bool.isRequired,
 }
 
 export default withStyles(styles)(CurrentSong)

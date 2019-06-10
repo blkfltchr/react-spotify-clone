@@ -29,9 +29,21 @@ const styles = {
 }
 
 const PlayButtons = props => {
-  const {handlePlayToggle, classes, isPlaying, played, onSeekMouseDown, onSeekChange, onSeekMouseUp, handleNextSong, handlePreviousSong} = props
-
+  const {
+    handlePlayToggle,
+    classes,
+    isPlaying,
+    played,
+    onSeekMouseDown,
+    onSeekChange,
+    onSeekMouseUp,
+    handleNextSong,
+    handlePreviousSong,
+    toggleLoop,
+    loop,
+  } = props
   const playPause = !isPlaying ? <PlayArrowIcon className={classes.playIcon} /> : <PauseIcon className={classes.playIcon} />
+  const loopColor = loop ? '#1db954' : 'white'
   return (
     <div className={classes.root}>
       <div className={classes.controls}>
@@ -59,10 +71,11 @@ const PlayButtons = props => {
         >
           <SkipNextIcon />
         </IconButton>
-        <IconButton>
+        <IconButton onClick={toggleLoop}>
           <RepeatIcon  
+            style={{color: loopColor}}
             aria-label="Repeat"
-            className={classes.skipButtons}/>
+          />
         </IconButton>
       </div>
       <input
@@ -89,6 +102,8 @@ PlayButtons.propTypes = {
   onSeekMouseUp: PropTypes.func.isRequired,
   handleNextSong: PropTypes.func.isRequired,
   handlePreviousSong: PropTypes.func.isRequired,
+  toggleLoop: PropTypes.func.isRequired,
+  loop: PropTypes.bool.isRequired,
 }
 
 export default withStyles(styles)(PlayButtons)
